@@ -1,6 +1,8 @@
 import React from 'react'
 import Axios from 'axios';
 import { withRouter }  from 'react-router-dom'
+import { connect } from 'react-redux' 
+import { loadData } from '../../redux/user.redux'
 
 
 class Authroute extends React.Component{
@@ -15,7 +17,7 @@ class Authroute extends React.Component{
       .then(res=>{
         if(res.status === 200){
           if(res.data.code === 0){
-
+            this.props.loadData(res.data.data)
           }else {
             this.props.history.push('/login')
           }
@@ -29,4 +31,5 @@ class Authroute extends React.Component{
 }
 
 
-export default withRouter(Authroute)
+
+export default connect(null,{loadData})(withRouter(Authroute))
